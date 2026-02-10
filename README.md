@@ -14,8 +14,10 @@ A collaborative Yiddish multilingual dictionary.
 - Monorepo (pnpm workspaces)
 - Backend: NestJS
 - Frontend: TBD
+
 ## Getting started
 
 ```bash
 pnpm install
 ``
+```
