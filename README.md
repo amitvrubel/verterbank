@@ -19,5 +19,4 @@ A collaborative Yiddish multilingual dictionary.
 
 ```bash
 pnpm install
-``
 ```
