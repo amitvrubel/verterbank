@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": ""
   },
   "keywords": [],
   "author": "",
@@ -30,5 +31,9 @@
     "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "prisma": "6.19.0",
+    "@prisma/client": "6.19.0"
   }
 }

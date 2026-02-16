@@ -1,0 +1,229 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum PartOfSpeech {
+  NOUN
+  VERB
+  ADJECTIVE
+  ADVERB
+  PRONOUN
+  DETERMINER
+  PREPOSITION
+  CONJUNCTION
+  PARTICLE
+  INTERJECTION
+  NUMERAL
+  PROPER_NOUN
+  OTHER
+}
+
+enum GrammaticalGender {
+  MASC
+  FEM
+  NEUT
+}
+
+enum GrammaticalNumber {
+  SG
+  PL
+}
+
+enum PastAuxiliary {
+  HABN
+  ZAYN
+  BOTH
+}
+
+enum Tense {
+  PRESENT
+  PAST
+  FUTURE
+}
+
+enum Mood {
+  INDICATIVE
+  IMPERATIVE
+  CONDITIONAL
+}
+
+enum Degree {
+  POSITIVE
+  COMPARATIVE
+  SUPERLATIVE
+}
+
+model Headword {
+  id         String        @id @default(cuid())
+  orth       String
+  searchOrth String
+  status     PublishStatus @default(DRAFT)
+
+  lexemes Lexeme[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@index([searchOrth])
+}
+
+model Lexeme {
+  id         String   @id @default(cuid())
+  headwordId String
+  headword   Headword @relation(fields: [headwordId], references: [id], onDelete: Cascade)
+
+  partOfSpeech      PartOfSpeech
+  grammaticalGender GrammaticalGender?
+  pastAuxiliary     PastAuxiliary?
+
+  yivo   String?
+  ipa    String?
+  notes  String?
+  status PublishStatus @default(DRAFT)
+
+  senses Sense[]
+  forms  Form[]
+
+  usageLabels LexemeUsageLabel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@unique([headwordId, partOfSpeech, grammaticalGender])
+  @@index([headwordId])
+}
+
+model Sense {
+  id       String @id @default(cuid())
+  lexemeId String
+  lexeme   Lexeme @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
+
+  definitionYi String?
+  glossYi      String?
+  order        Int
+  status       PublishStatus @default(DRAFT)
+
+  examples     Example[]
+  translations SenseTranslation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@index([lexemeId, order])
+}
+
+model Example {
+  id      String @id @default(cuid())
+  senseId String
+  sense   Sense  @relation(fields: [senseId], references: [id], onDelete: Cascade)
+
+  textYi String
+  order  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@index([senseId, order])
+}
+
+model SenseTranslation {
+  id      String @id @default(cuid())
+  senseId String
+  sense   Sense  @relation(fields: [senseId], references: [id], onDelete: Cascade)
+
+  lang  String
+  text  String
+  note  String?
+  order Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@index([senseId, lang, order])
+}
+
+model Form {
+  id       String @id @default(cuid())
+  lexemeId String
+  lexeme   Lexeme @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
+
+  valueOrth   String
+  valueSearch String
+  yivo        String?
+  ipa         String?
+  note        String?
+  order       Int
+  status      PublishStatus @default(DRAFT)
+
+  // FeatureSet (nullable)
+  number GrammaticalNumber?
+  person Int? // keep Int now (1/2/3); validate in app layer
+  tense  Tense?
+  mood   Mood?
+  degree Degree?
+  gender GrammaticalGender?
+
+  usageLabels FormUsageLabel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+  updatedBy String?
+
+  @@index([lexemeId, order])
+  @@index([valueSearch])
+}
+
+model UsageLabel {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+
+  lexemes LexemeUsageLabel[]
+  forms   FormUsageLabel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LexemeUsageLabel {
+  lexemeId String
+  labelId  String
+
+  lexeme Lexeme     @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
+  label  UsageLabel @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([lexemeId, labelId])
+  @@index([labelId])
+}
+
+model FormUsageLabel {
+  formId  String
+  labelId String
+
+  form  Form       @relation(fields: [formId], references: [id], onDelete: Cascade)
+  label UsageLabel @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([formId, labelId])
+  @@index([labelId])
+}
