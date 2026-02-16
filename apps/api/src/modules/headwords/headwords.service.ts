@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, PublishStatus } from '@prisma/client';
+import { PublishStatus } from '@prisma/client';
 import { normalizeYiddish } from '../../common/normalize/normalize-yiddish';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class HeadwordsService {
-  private prisma = new PrismaClient();
+  constructor(private readonly prisma: PrismaService) {}
 
   async createHeadword(orth: string) {
     const searchOrth = normalizeYiddish(orth);
@@ -38,7 +39,7 @@ export class HeadwordsService {
       include: {
         lexemes: {
           include: {
-            senses: true
+            senses: true,
           },
         },
       },
