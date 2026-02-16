@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PublishStatus } from '@prisma/client';
 import { normalizeYiddish } from '../../common/normalize/normalize-yiddish';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -44,5 +44,38 @@ export class HeadwordsService {
         },
       },
     });
+  }
+
+  async findById(id: string) {
+    const headword = await this.prisma.headword.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        lexemes: {
+          orderBy: { id: 'asc' },
+          include: {
+            senses: {
+              orderBy: { order: 'asc' },
+              include: {
+                translations: {
+                  orderBy: { order: 'asc' },
+                },
+                examples: {
+                  orderBy: { order: 'asc' },
+                },
+              },
+            },
+            forms: {
+              orderBy: { order: 'asc' },
+            },
+          },
+        },
+      },
+    });
+    if (!headword) {
+      throw new NotFoundException(`Headword with id ${id} not found`);
+    }
+    return headword;
   }
 }
