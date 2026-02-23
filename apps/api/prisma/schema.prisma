@@ -64,7 +64,7 @@ enum Degree {
 }
 
 model Headword {
-  id         String        @id @default(cuid())
+  id         String        @id @default(cuid(2))
   orth       String
   searchOrth String
   status     PublishStatus @default(DRAFT)
@@ -80,7 +80,7 @@ model Headword {
 }
 
 model Lexeme {
-  id         String   @id @default(cuid())
+  id         String   @id @default(cuid(2))
   headwordId String
   headword   Headword @relation(fields: [headwordId], references: [id], onDelete: Cascade)
 
@@ -108,7 +108,7 @@ model Lexeme {
 }
 
 model Sense {
-  id       String @id @default(cuid())
+  id       String @id @default(cuid(2))
   lexemeId String
   lexeme   Lexeme @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
 
@@ -129,7 +129,7 @@ model Sense {
 }
 
 model Example {
-  id      String @id @default(cuid())
+  id      String @id @default(cuid(2))
   senseId String
   sense   Sense  @relation(fields: [senseId], references: [id], onDelete: Cascade)
 
@@ -145,7 +145,7 @@ model Example {
 }
 
 model SenseTranslation {
-  id      String @id @default(cuid())
+  id      String @id @default(cuid(2))
   senseId String
   sense   Sense  @relation(fields: [senseId], references: [id], onDelete: Cascade)
 
@@ -163,7 +163,7 @@ model SenseTranslation {
 }
 
 model Form {
-  id       String @id @default(cuid())
+  id       String @id @default(cuid(2))
   lexemeId String
   lexeme   Lexeme @relation(fields: [lexemeId], references: [id], onDelete: Cascade)
 
@@ -195,7 +195,7 @@ model Form {
 }
 
 model UsageLabel {
-  id   String @id @default(cuid())
+  id   String @id @default(cuid(2))
   slug String @unique
   name String
 
