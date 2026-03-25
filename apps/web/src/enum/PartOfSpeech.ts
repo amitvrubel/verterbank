@@ -1,0 +1,15 @@
+export enum PartOfSpeechEnum {
+  'NOUN' = 'נאָמען',
+  'VERB' = 'ווערב',
+  'ADJECTIVE' = 'אַדזשעקטיוו',
+  'ADVERB' = 'אַדדוערב',
+  'PRONOUN' = 'פּראָנאָמען',
+  'DETERMINER' = 'דעטערמינער',
+  'PREPOSITION' = 'פּרעפּאָזיציע',
+  'CONJUNCTION' = 'קאָנדזשונקציע',
+  'PARTICLE' = 'פּאַרטיקל',
+  'INTERJECTION' = 'אינטערדזשעקשאַן',
+  'NUMERAL' = 'צאָלוואָרט',
+  'PROPER_NOUN' = 'אייגענער נאָמען',
+  'OTHER' = 'אַנדער',
+}

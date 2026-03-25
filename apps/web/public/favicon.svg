@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Verterbank favicon">
+  <defs>
+    <linearGradient id="vbRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c61b1b"/>
+      <stop offset="100%" stop-color="#ef4023"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="44" fill="url(#vbRed)"/>
+  <g transform="translate(22,18)">
+    <path d="M40 54 C 63 54, 84 65, 100 82 C 114 96, 126 120, 133 148
+             C 138 118, 149 90, 167 66 C 187 38, 218 20, 256 10
+             C 237 35, 227 64, 226 92 C 225 121, 234 149, 254 178
+             C 223 162, 199 143, 180 118 C 164 94, 152 66, 142 34
+             C 131 78, 118 112, 101 138 C 85 162, 63 183, 36 201
+             C 49 164, 55 132, 55 104 C 54 79, 49 63, 40 54 Z"
+          fill="#ffffff" transform="scale(0.72) translate(18,18)"/>
+    <path d="M111 167 C 134 135, 157 99, 198 57" fill="none" stroke="#ef4023" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
