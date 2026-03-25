@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react';
+import { type ReactElement, useState, type KeyboardEvent } from 'react';
 import styles from './Search.module.scss';
 import { useNavigate } from 'react-router-dom';
 import _ from 'classnames';
@@ -6,6 +6,7 @@ import { useSearch } from '../../hooks/useSearch.ts';
 import useDebouncedValue from '../../hooks/useDebouncedValue.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { getHeadwordById } from '../../api/headwords.ts';
+import { highlight } from '../../utils/highlight.tsx';
 
 type SearchProps = {
   variant: 'inline' | 'centered';
@@ -16,8 +17,30 @@ export function Search({ variant }: SearchProps): ReactElement {
   const debouncedQuery = useDebouncedValue(query);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
   const { data: results = [] } = useSearch(debouncedQuery);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
+
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (!results?.length) {
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev + 1) % results.length);
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev <= 0 ? (prev - 1) % results.length : prev - 1));
+    }
+
+    if (e.key === 'Enter' && activeIndex >= 0) {
+      const selected = results[activeIndex];
+      navigate(`/headwords/${selected.id}`);
+      setQuery('');
+    }
+  }
 
   return (
     <div
@@ -34,6 +57,7 @@ export function Search({ variant }: SearchProps): ReactElement {
         name="search"
         type="text"
         value={query}
+        onKeyDown={handleKeyDown}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="זוך אַ וואָרט"
         dir="rtl"
@@ -42,10 +66,12 @@ export function Search({ variant }: SearchProps): ReactElement {
         <div className={styles.searchResultsContainer}>
           {results.length > 0 ? (
             <div className={styles.searchResults}>
-              {results.map((r) => (
+              {results.map((r, i) => (
                 <div
                   key={r.id}
-                  className={_(styles.searchResult, styles.clickable)}
+                  className={_(styles.searchResult, styles.clickable, {
+                    [styles.active]: i === activeIndex,
+                  })}
                   onMouseEnter={() => {
                     void queryClient.prefetchQuery({
                       queryKey: ['headword', r.id],
@@ -57,7 +83,7 @@ export function Search({ variant }: SearchProps): ReactElement {
                     setQuery('');
                   }}
                 >
-                  {r.orth}
+                  {highlight(r.orth, query)}
                 </div>
               ))}
             </div>
