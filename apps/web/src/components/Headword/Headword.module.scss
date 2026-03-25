@@ -1,0 +1,15 @@
+.headwordContainer {
+  padding: 1rem;
+  .headwordHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.loadingContainer {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+}

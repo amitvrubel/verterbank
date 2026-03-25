@@ -1,0 +1,24 @@
+.container {
+  margin-top: 1rem;
+}
+
+.header {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.definition {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.section {
+  margin-top: 0.25rem;
+  padding-right: 1rem;
+}
+
+.language {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

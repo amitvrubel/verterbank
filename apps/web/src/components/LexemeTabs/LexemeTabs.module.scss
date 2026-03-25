@@ -1,0 +1,26 @@
+.lexemeTabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+
+  .tabBtn {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #555;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    &:hover {
+      color: #000;
+    }
+    .active {
+     color: #000;
+      border-bottom: 2px solid #000;
+      font-weight: 500;
+    }
+  }
+}

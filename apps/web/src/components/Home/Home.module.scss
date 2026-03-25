@@ -1,0 +1,15 @@
+.homeContainer {
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  .homeInner {
+    width: 100%;
+    text-align: center;
+
+    .title {
+      font-size: 3.5rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
