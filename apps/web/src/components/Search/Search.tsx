@@ -1,12 +1,11 @@
-import { type ReactElement, useEffect, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import styles from './Search.module.scss';
-import { API_BASE_URL } from '../../api/config.ts';
 import { useNavigate } from 'react-router-dom';
 import _ from 'classnames';
-type SearchResult = {
-  id: string;
-  orth: string;
-};
+import { useSearch } from '../../hooks/useSearch.ts';
+import useDebouncedValue from '../../hooks/useDebouncedValue.ts';
+import { useQueryClient } from '@tanstack/react-query';
+import { getHeadwordById } from '../../api/headwords.ts';
 
 type SearchProps = {
   variant: 'inline' | 'centered';
@@ -14,33 +13,12 @@ type SearchProps = {
 
 export function Search({ variant }: SearchProps): ReactElement {
   const [query, setQuery] = useState<string>('');
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const debouncedQuery = useDebouncedValue(query);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!query.trim()) {
-      setResults([]);
-      return;
-    }
-    const timeout = setTimeout(async () => {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/headwords/search?q=${encodeURIComponent(query)}`,
-        );
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-        const data = await response.json();
-        setResults(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }, 300);
+  const { data: results = [] } = useSearch(debouncedQuery);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [query]);
   return (
     <div
       className={_(styles.searchContainer, {
@@ -60,22 +38,33 @@ export function Search({ variant }: SearchProps): ReactElement {
         placeholder="זוך אַ וואָרט"
         dir="rtl"
       />
-      {results.length > 0 && (
-        <ul className={styles.searchResults}>
-          {results.map((r) => (
-            <li
-              key={r.id}
-              className={_(styles.searchResult, styles.clickable)}
-              onClick={() => {
-                navigate(`/headwords/${r.id}`);
-                setResults([]);
-                setQuery(r.orth);
-              }}
-            >
-              {r.orth}
-            </li>
-          ))}
-        </ul>
+      {query && (
+        <div className={styles.searchResultsContainer}>
+          {results.length > 0 ? (
+            <div className={styles.searchResults}>
+              {results.map((r) => (
+                <div
+                  key={r.id}
+                  className={_(styles.searchResult, styles.clickable)}
+                  onMouseEnter={() => {
+                    void queryClient.prefetchQuery({
+                      queryKey: ['headword', r.id],
+                      queryFn: () => getHeadwordById(r.id),
+                    });
+                  }}
+                  onClick={() => {
+                    navigate(`/headwords/${r.id}`);
+                    setQuery('');
+                  }}
+                >
+                  {r.orth}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.emptySearchResults}>קיין רעזולטאַטען נישט געפֿונען</div>
+          )}
+        </div>
       )}
     </div>
   );

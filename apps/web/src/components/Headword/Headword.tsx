@@ -11,10 +11,10 @@ import { Loading } from '../Loading/Loading.tsx';
 export function Headword(): ReactElement {
   const [activeLexemeIndex, setActiveLexemeIndex] = useState<number>(0);
   const { id } = useParams<{ id: string }>();
-  const { headword, loading, error } = useGetHeadwordById(id);
+  const { data: headword, isLoading, error } = useGetHeadwordById(id);
   const lexeme = headword?.lexemes[activeLexemeIndex];
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
         <Loading />
@@ -23,7 +23,7 @@ export function Headword(): ReactElement {
   }
 
   if (error) {
-    return <div>Error {error}</div>;
+    return <div>Error {error.message}</div>;
   }
 
   if (!headword) {
