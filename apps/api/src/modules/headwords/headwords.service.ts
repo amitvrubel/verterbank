@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PublishStatus } from '@prisma/client';
 import { normalizeYiddish } from '../../common/normalize/normalize-yiddish';
 import { PrismaService } from '../../prisma/prisma.service';
+import { isAlefBeys } from '../../common/normalize/isAlefBeys';
 
 @Injectable()
 export class HeadwordsService {
@@ -20,29 +21,46 @@ export class HeadwordsService {
   }
 
   async search(query: string) {
-    const normalized = normalizeYiddish(query);
-    if (!normalized) {
+    const trimmed = query.trim();
+
+    if (!trimmed) {
       return [];
     }
+    const limit = 20;
+
+    if (isAlefBeys(trimmed)) {
+      const normalized = normalizeYiddish(trimmed);
+      return this.prisma.headword.findMany({
+        where: {
+          searchOrth: {
+            startsWith: normalized,
+          },
+        },
+        select: {
+          id: true,
+          orth: true,
+        },
+        take: limit,
+      });
+    }
+
+    const lowered = trimmed.toLowerCase();
 
     return this.prisma.headword.findMany({
       where: {
-        searchOrth: {
-          startsWith: normalized,
-          mode: 'insensitive',
-        },
-      },
-      orderBy: {
-        searchOrth: 'asc',
-      },
-      take: 20,
-      include: {
         lexemes: {
-          include: {
-            senses: true,
+          some: {
+            yivo: {
+              startsWith: lowered,
+            },
           },
         },
       },
+      select: {
+        id: true,
+        orth: true,
+      },
+      take: limit,
     });
   }
 
