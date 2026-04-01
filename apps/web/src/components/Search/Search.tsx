@@ -32,7 +32,12 @@ export function Search({ variant }: SearchProps): ReactElement {
 
     if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActiveIndex((prev) => (prev <= 0 ? (prev - 1) % results.length : prev - 1));
+      setActiveIndex((prev) => {
+        if (results.length === 0) {
+          return -1;
+        }
+        return (prev - 1 + results.length) % results.length;
+      });
     }
 
     if (e.key === 'Enter' && activeIndex >= 0) {

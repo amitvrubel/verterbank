@@ -76,6 +76,7 @@ model Headword {
   createdBy String?
   updatedBy String?
 
+  @@unique([orth])
   @@index([searchOrth])
 }
 
@@ -104,7 +105,7 @@ model Lexeme {
   updatedBy String?
 
   @@unique([headwordId, partOfSpeech, grammaticalGender])
-  @@index([headwordId])
+  @@index([headwordId, yivo])
 }
 
 model Sense {
