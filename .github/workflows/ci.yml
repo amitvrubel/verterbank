@@ -1,0 +1,29 @@
+name: CI
+on:
+  push:
+    push:
+    pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install deps
+        run: pnpm install
+      - name: Generate Prisma Client
+        run: pnpm --filter api exec prisma generate
+      - name: Build API
+        run: pnpm --filter api build
+      - name: Build Web
+        run: pnpm --filter web build
