@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateExampleDto } from './dto/create-example.dto';
+import { UpdateExampleDto } from './dto/update-example.dto';
 
 @Injectable()
 export class ExamplesService {
@@ -34,9 +35,35 @@ export class ExamplesService {
     });
   }
 
+  async update(id: string, dto: UpdateExampleDto) {
+    await this.findExampleOrThrow(id);
+
+    return this.prisma.example.update({
+      where: { id },
+      data: {
+        ...(dto.textYi !== undefined && { textYi: dto.textYi }),
+        ...(dto.order !== undefined && { order: dto.order }),
+      },
+    });
+  }
+
   async delete(id: string) {
+    await this.findExampleOrThrow(id);
     return this.prisma.example.delete({
       where: { id },
     });
+  }
+
+  private async findExampleOrThrow(id: string) {
+    const example = await this.prisma.example.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!example) {
+      throw new NotFoundException(`Example ${id} not found`);
+    }
+
+    return example;
   }
 }

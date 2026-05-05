@@ -3,6 +3,7 @@ import { PublishStatus } from '@prisma/client';
 import { normalizeYiddish } from '../../common/normalize/normalize-yiddish';
 import { PrismaService } from '../../prisma/prisma.service';
 import { isAlefBeys } from '../../common/normalize/isAlefBeys';
+import { UpdateHeadwordDto } from './dto/update-headword.dto';
 
 @Injectable()
 export class HeadwordsService {
@@ -94,6 +95,33 @@ export class HeadwordsService {
     if (!headword) {
       throw new NotFoundException(`Headword with id ${id} not found`);
     }
+    return headword;
+  }
+
+  async update(id: string, dto: UpdateHeadwordDto) {
+    await this.findHeadwordOrThrow(id);
+    return this.prisma.headword.update({
+      where: { id },
+      data: {
+        ...(dto.orth !== undefined && {
+          orth: dto.orth,
+          searchOrth: normalizeYiddish(dto.orth),
+        }),
+        ...(dto.status !== undefined && { status: dto.status }),
+      },
+    });
+  }
+
+  private async findHeadwordOrThrow(id: string) {
+    const headword = await this.prisma.headword.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!headword) {
+      throw new NotFoundException(`Headword ${id} not found`);
+    }
+
     return headword;
   }
 }

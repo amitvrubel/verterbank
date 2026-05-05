@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateSenseDto } from './dto/create-sense.dto';
 import { PublishStatus } from '@prisma/client';
+import { UpdateSenseDto } from './dto/update-sense.dto';
 
 @Injectable()
 export class SensesService {
@@ -53,5 +54,43 @@ export class SensesService {
     return this.prismaService.sense.delete({
       where: { id: senseId },
     });
+  }
+
+  async update(senseId: string, dto: UpdateSenseDto) {
+    await this.findSenseForLexemeOrThrow(senseId);
+
+    return this.prismaService.sense.update({
+      where: { id: senseId },
+      data: {
+        ...(dto.definitionYi !== undefined && {
+          definitionYi: dto.definitionYi,
+        }),
+        ...(dto.glossYi !== undefined && { glossYi: dto.glossYi }),
+        ...(dto.order !== undefined && { order: dto.order }),
+        ...(dto.status !== undefined && { status: dto.status }),
+      },
+    });
+  }
+
+  async remove(senseId: string) {
+    await this.findSenseForLexemeOrThrow(senseId);
+    return this.prismaService.sense.delete({ where: { id: senseId } });
+  }
+
+  private async findSenseForLexemeOrThrow(senseId: string) {
+    const sense = await this.prismaService.sense.findUnique({
+      where: {
+        id: senseId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!sense) {
+      throw new NotFoundException(`Sense ${senseId} not found`);
+    }
+
+    return sense;
   }
 }

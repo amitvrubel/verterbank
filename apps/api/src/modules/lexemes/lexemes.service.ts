@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateLexemeDto } from './dto/create-lexeme.dto';
 import { PublishStatus } from '@prisma/client';
+import { UpdateLexemeDto } from './dto/update-lexeme.dto';
 
 @Injectable()
 export class LexemesService {
@@ -38,5 +39,46 @@ export class LexemesService {
         status: status ?? PublishStatus.DRAFT,
       },
     });
+  }
+
+  async update(id: string, dto: UpdateLexemeDto) {
+    await this.findLexemeOrThrow(id);
+    return this.prismaService.lexeme.update({
+      where: { id },
+      data: {
+        ...(dto.partOfSpeech !== undefined && {
+          partOfSpeech: dto.partOfSpeech,
+        }),
+        ...(dto.grammaticalGender !== undefined && {
+          grammaticalGender: dto.grammaticalGender,
+        }),
+        ...(dto.pastAuxiliary !== undefined && {
+          pastAuxiliary: dto.pastAuxiliary,
+        }),
+        ...(dto.yivo !== undefined && { yivo: dto.yivo }),
+        ...(dto.ipa !== undefined && { ipa: dto.ipa }),
+        ...(dto.notes !== undefined && { notes: dto.notes }),
+        ...(dto.status !== undefined && { status: dto.status }),
+      },
+    });
+  }
+
+  async delete(id: string) {
+    await this.findLexemeOrThrow(id);
+    return this.prismaService.lexeme.delete({
+      where: { id },
+    });
+  }
+
+  private async findLexemeOrThrow(id: string) {
+    const lexeme = await this.prismaService.lexeme.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!lexeme) {
+      throw new NotFoundException(`Lexeme with id ${id} not found`);
+    }
+    return lexeme;
   }
 }
