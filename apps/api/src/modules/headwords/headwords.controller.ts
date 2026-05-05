@@ -1,6 +1,17 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { HeadwordsService } from './headwords.service';
 import { CreateHeadwordDto } from './dto/create-headword.dto';
+import { UpdateLexemeDto } from '../lexemes/dto/update-lexeme.dto';
+import { UpdateHeadwordDto } from './dto/update-headword.dto';
 
 @Controller('headwords')
 export class HeadwordsController {
@@ -19,5 +30,13 @@ export class HeadwordsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.headwords.findById(id);
+  }
+
+  @Patch(':headwordId')
+  update(
+    @Param('headwordId') headwordId: string,
+    @Body() dto: UpdateHeadwordDto,
+  ) {
+    return this.headwords.update(headwordId, dto);
   }
 }

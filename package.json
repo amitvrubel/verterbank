@@ -12,7 +12,11 @@
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": ""
+    "docker:up": "docker compose up -d db",
+    "docker:down": "docker compose down",
+    "dev:api": "pnpm --filter @verterbank/api start:dev",
+    "dev:web": "pnpm --filter @verterbank/web dev",
+    "start:dev": "pnpm docker:up && (pnpm dev:api & pnpm dev:web & wait)"
   },
   "keywords": [],
   "author": "",
