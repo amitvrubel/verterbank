@@ -104,6 +104,9 @@ model Lexeme {
   createdBy String?
   updatedBy String?
 
+  relationsFrom LexemeRelation[] @relation("RelationFrom")
+  relationsTo   LexemeRelation[] @relation("RelationTo")
+
   @@unique([headwordId, partOfSpeech, grammaticalGender])
   @@index([headwordId, yivo])
 }
@@ -227,4 +230,27 @@ model FormUsageLabel {
 
   @@id([formId, labelId])
   @@index([labelId])
+}
+
+enum RelationType {
+  SYNOMYM
+  ANTONYM
+  RELATED
+  DERIVED_FROM
+  VARIANT_OF
+}
+
+model LexemeRelation {
+  fromLexemeId String
+  toLexemeId   String
+  type         RelationType
+
+  fromLexeme Lexeme @relation("RelationFrom", fields: [fromLexemeId], references: [id], onDelete: Cascade)
+  toLexeme   Lexeme @relation("RelationTo", fields: [toLexemeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  createdBy String?
+
+  @@id([fromLexemeId, toLexemeId])
+  @@index([toLexemeId])
 }
