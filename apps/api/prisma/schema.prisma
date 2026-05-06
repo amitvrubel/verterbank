@@ -12,6 +12,12 @@ enum PublishStatus {
   PUBLISHED
 }
 
+enum GrammaticalCase {
+  NOMINATIVE
+  ACCUSATIVE
+  DATIVE
+}
+
 enum PartOfSpeech {
   NOUN
   VERB
@@ -186,6 +192,7 @@ model Form {
   mood   Mood?
   degree Degree?
   gender GrammaticalGender?
+  case   GrammaticalCase?
 
   usageLabels FormUsageLabel[]
 

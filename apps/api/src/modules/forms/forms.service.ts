@@ -24,6 +24,7 @@ export class FormsService {
       mood,
       degree,
       gender,
+      case: grammaticalCase,
     }: CreateFormDto,
   ) {
     const lexeme = await this.prisma.lexeme.findUnique({
@@ -60,6 +61,7 @@ export class FormsService {
         mood,
         degree,
         gender,
+        case: grammaticalCase,
         status: publishStatus ?? PublishStatus.DRAFT,
       },
     });
@@ -82,6 +84,7 @@ export class FormsService {
       ...(dto.degree !== undefined && { degree: dto.degree }),
       ...(dto.gender !== undefined && { gender: dto.gender }),
       ...(dto.order !== undefined && { order: dto.order }),
+      ...(dto.case !== undefined && { case: dto.case }),
     };
 
     return this.prisma.form.update({

@@ -13,6 +13,7 @@ import {
   Mood,
   PublishStatus,
   Tense,
+  GrammaticalCase,
 } from '@prisma/client';
 
 export class CreateFormDto {
@@ -67,4 +68,8 @@ export class CreateFormDto {
   @IsOptional()
   @IsEnum(GrammaticalGender)
   gender?: GrammaticalGender;
+
+  @IsOptional()
+  @IsEnum(GrammaticalCase)
+  case?: GrammaticalCase;
 }
