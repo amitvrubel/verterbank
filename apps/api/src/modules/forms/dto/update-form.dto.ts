@@ -1,6 +1,7 @@
 import { IsEnum, IsInt, IsOptional, IsString, Min } from 'class-validator';
 import {
   Degree,
+  GrammaticalCase,
   GrammaticalGender,
   GrammaticalNumber,
   Mood,
@@ -41,6 +42,10 @@ export class UpdateFormDto {
   @IsOptional()
   @IsEnum(GrammaticalGender)
   gender?: GrammaticalGender;
+
+  @IsOptional()
+  @IsEnum(GrammaticalCase)
+  case?: GrammaticalCase;
 
   @IsOptional()
   @IsInt()
