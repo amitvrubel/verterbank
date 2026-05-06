@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateLexemeDto } from './dto/create-lexeme.dto';
-import { PublishStatus } from '@prisma/client';
+import { PublishStatus, RelationType } from '@prisma/client';
 import { UpdateLexemeDto } from './dto/update-lexeme.dto';
 
 @Injectable()
@@ -67,6 +67,46 @@ export class LexemesService {
     await this.findLexemeOrThrow(id);
     return this.prismaService.lexeme.delete({
       where: { id },
+    });
+  }
+
+  async getRelations(lexemeId: string) {
+    await this.findLexemeOrThrow(lexemeId);
+
+    const relations = await this.prismaService.lexemeRelation.findMany({
+      where: { OR: [{ fromLexemeId: lexemeId }, { toLexemeId: lexemeId }] },
+      include: {
+        fromLexeme: true,
+        toLexeme: true,
+      },
+    });
+
+    return relations.map((relation) => ({
+      type: relation.type,
+      lexeme:
+        relation.fromLexemeId === lexemeId
+          ? relation.toLexemeId
+          : relation.fromLexemeId,
+    }));
+  }
+
+  async createRelation(
+    fromLexemeId: string,
+    toLexemeId: string,
+    type: RelationType,
+  ) {
+    await this.findLexemeOrThrow(fromLexemeId);
+    await this.findLexemeOrThrow(toLexemeId);
+    return this.prismaService.lexemeRelation.create({
+      data: { fromLexemeId, toLexemeId, type },
+    });
+  }
+
+  async deleteRelation(fromLexemeId: string, toLexemeId: string) {
+    return this.prismaService.lexemeRelation.delete({
+      where: {
+        fromLexemeId_toLexemeId: { fromLexemeId, toLexemeId },
+      },
     });
   }
 
