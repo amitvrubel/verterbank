@@ -7,6 +7,8 @@ import useDebouncedValue from '../../hooks/useDebouncedValue.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { getHeadwordById } from '../../api/headwords.ts';
 import { highlight } from '../../utils/highlight.tsx';
+import { RtlText } from '../RtlText/RtlText.tsx';
+import { yi } from '../../i18n/messages.ts';
 
 type SearchProps = {
   variant: 'inline' | 'centered';
@@ -64,7 +66,7 @@ export function Search({ variant }: SearchProps): ReactElement {
         value={query}
         onKeyDown={handleKeyDown}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="זוך אַ וואָרט"
+        placeholder={yi.searchPlaceholder}
         dir="rtl"
       />
       {query && (
@@ -93,7 +95,9 @@ export function Search({ variant }: SearchProps): ReactElement {
               ))}
             </div>
           ) : (
-            <div className={styles.emptySearchResults}>קיין רעזולטאַטען נישט געפֿונען</div>
+            <RtlText variant="div" className={styles.emptySearchResults}>
+              {yi.noResults}
+            </RtlText>
           )}
         </div>
       )}

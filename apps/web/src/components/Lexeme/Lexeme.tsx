@@ -2,6 +2,8 @@ import type { Form, Sense as SenseDto } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import { Sense } from '../Sense/Sense.tsx';
 import styles from './Lexeme.module.scss';
+import { RtlText } from '../RtlText/RtlText.tsx';
+import { yi } from '../../i18n/messages.ts';
 
 type LexemeProps = {
   forms: Form[];
@@ -20,7 +22,7 @@ export function Lexeme({ forms, senses }: LexemeProps): ReactElement {
       </div>
 
       <section>
-        <strong>באַטײַטן</strong>
+        <RtlText variant="strong">{yi.meanings}</RtlText>
         {senses.map((sense, index) => (
           <Sense key={sense.id} index={index} sense={sense} />
         ))}
