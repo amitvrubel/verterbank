@@ -2,6 +2,8 @@ import type { Sense } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import styles from './Sense.module.scss';
 import { Translations } from '../Translations/Translations.tsx';
+import { RtlText } from '../RtlText/RtlText.tsx';
+import { yi } from '../../i18n/messages.ts';
 
 type SenseProps = {
   index: number;
@@ -16,7 +18,7 @@ export function Sense({ index, sense }: SenseProps): ReactElement {
       </div>
       <Translations translations={sense.translations} />
       <div className={styles.section}>
-        <strong>Examples:</strong>
+        <RtlText variant="strong">{yi.examples}</RtlText>
         <ul>
           {sense.examples.map((example) => (
             <li key={example.id}>{example.textYi}</li>

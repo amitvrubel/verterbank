@@ -2,6 +2,8 @@ import type { Translation } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import styles from './Translations.module.scss';
 import { LanguagesEnum } from '../../enum/LanguagesEnum.ts';
+import { RtlText } from '../RtlText/RtlText.tsx';
+import { yi } from '../../i18n/messages.ts';
 
 type TranslationsProps = {
   translations: Translation[];
@@ -21,7 +23,7 @@ export function Translations({ translations }: TranslationsProps): ReactElement 
 
   return (
     <div className={styles.translationContainer}>
-      <strong>איבערזעצונגען</strong>
+      <RtlText variant="strong">{yi.translations}</RtlText>
       {Object.entries(translationsByLanguage).map(([lang, text]) => (
         <div key={lang} className={styles.translationTable}>
           <div className={styles.translationLanguage}>
