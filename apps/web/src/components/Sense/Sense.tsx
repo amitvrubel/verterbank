@@ -1,4 +1,4 @@
-import type { Sense } from '../../dto/HeadwordDto.ts';
+import type { ApiSense } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import styles from './Sense.module.scss';
 import { Translations } from '../Translations/Translations.tsx';
@@ -7,24 +7,29 @@ import { yi } from '../../i18n/messages.ts';
 
 type SenseProps = {
   index: number;
-  sense: Sense;
+  sense: ApiSense;
 };
 export function Sense({ index, sense }: SenseProps): ReactElement {
   return (
-    <div key={sense.id} className={styles.container}>
+    <div key={sense.id} className={styles.sensesContainer}>
+      {sense.glossYi && <RtlText variant="i">{sense.glossYi}</RtlText>}
       <div className={styles.header}>
         <strong>{index + 1}.</strong>
-        <span>{sense.definitionYi}</span>
+        <RtlText>{sense.definitionYi}</RtlText>
       </div>
-      <Translations translations={sense.translations} />
-      <div className={styles.section}>
-        <RtlText variant="strong">{yi.examples}</RtlText>
-        <ul>
-          {sense.examples.map((example) => (
-            <li key={example.id}>{example.textYi}</li>
-          ))}
-        </ul>
-      </div>
+      <section className={styles.senseIndentedSection}>
+        <Translations translations={sense.translations} />
+      </section>
+      <section className={styles.senseIndentedSection}>
+        <div className={styles.senseExamples}>
+          <RtlText variant="h4">{yi.examples}</RtlText>
+          <ul>
+            {sense.examples.map((example) => (
+              <li key={example.id}>{example.textYi}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-.container {
+.sensesContainer {
   margin-top: 1rem;
 }
 
@@ -13,9 +13,13 @@
   line-height: 1.6;
 }
 
-.section {
+.senseIndentedSection {
   margin-top: 0.25rem;
-  padding-right: 1rem;
+  padding-right: 2rem;
+
+  .senseExamples {
+    padding-right: 1rem;
+  }
 }
 
 .language {

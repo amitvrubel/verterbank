@@ -1,32 +1,40 @@
-import type { Form, Sense as SenseDto } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
-import { Sense } from '../Sense/Sense.tsx';
+import type { LexemeViewModel } from '../../view-models/Lexeme.ts';
+import { PartOfSpeech } from '../../enum/PartOfSpeech.ts';
+import { DefaultLexeme } from './DefaultLexeme.tsx';
+import { Verb } from './Verb.tsx';
+import { Noun } from './Noun.tsx';
 import styles from './Lexeme.module.scss';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
+import { Senses } from '../Sense/Senses.tsx';
+import { Adjective } from './Adjective.tsx';
 
 type LexemeProps = {
-  forms: Form[];
-  senses: SenseDto[];
+  lexeme: LexemeViewModel;
+  headwordOrth: string;
 };
 
-export function Lexeme({ forms, senses }: LexemeProps): ReactElement {
+export function Lexeme({ lexeme, headwordOrth }: LexemeProps): ReactElement {
+  let specificContent: ReactElement;
+
+  switch (lexeme.partOfSpeech) {
+    case PartOfSpeech.VERB:
+      specificContent = <Verb verb={lexeme} />;
+      break;
+    case PartOfSpeech.NOUN:
+      specificContent = <Noun noun={lexeme} headwordOrth={headwordOrth} />;
+      break;
+    case PartOfSpeech.ADJECTIVE:
+      specificContent = <Adjective headwordOrth={headwordOrth} adjective={lexeme} />;
+      break;
+    default:
+      specificContent = <DefaultLexeme generic={lexeme} />;
+      break;
+  }
+
   return (
     <div className={styles.lexemeContainer}>
-      <div>
-        <ul>
-          {forms.map((form) => (
-            <li key={form.id}>{form.valueOrth} </li>
-          ))}
-        </ul>
-      </div>
-
-      <section>
-        <RtlText variant="strong">{yi.meanings}</RtlText>
-        {senses.map((sense, index) => (
-          <Sense key={sense.id} index={index} sense={sense} />
-        ))}
-      </section>
+      {specificContent}
+      <Senses senses={lexeme.senses} />
     </div>
   );
 }

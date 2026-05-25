@@ -1,15 +1,17 @@
-import type { Headword } from '../dto/HeadwordDto.ts';
 import { getHeadwordById } from '../api/headwords.ts';
 import { useQuery } from '@tanstack/react-query';
+import { toHeadwordViewModel } from '../mappers/headword.mapper.ts';
+import type { HeadwordViewModel } from '../view-models/Lexeme.ts';
 
 export function useGetHeadwordById(id?: string) {
-  return useQuery<Headword>({
+  return useQuery<HeadwordViewModel>({
     queryKey: ['headword', id],
-    queryFn: () => {
+    queryFn: async () => {
       if (!id) {
         throw new Error('Missing headword id');
       }
-      return getHeadwordById(id);
+      const data = await getHeadwordById(id);
+      return toHeadwordViewModel(data);
     },
     enabled: !!id,
     staleTime: 1000 * 60,

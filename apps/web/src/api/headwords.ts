@@ -1,4 +1,4 @@
-import type { Headword } from '../dto/HeadwordDto.ts';
+import type { ApiHeadword } from '../dto/HeadwordDto.ts';
 import { apiFetch } from './client.ts';
 
 type SearchResult = {
@@ -6,7 +6,7 @@ type SearchResult = {
   orth: string;
 };
 
-export function getHeadwordById(id: string): Promise<Headword> {
+export function getHeadwordById(id: string): Promise<ApiHeadword> {
   return apiFetch(`headwords/${id}`);
 }
 
