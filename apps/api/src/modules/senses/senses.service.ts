@@ -43,19 +43,6 @@ export class SensesService {
     });
   }
 
-  async delete(senseId: string) {
-    const sense = await this.prismaService.sense.findUnique({
-      where: { id: senseId },
-      select: { id: true },
-    });
-    if (!sense) {
-      throw new NotFoundException(`Sense ${senseId} not found`);
-    }
-    return this.prismaService.sense.delete({
-      where: { id: senseId },
-    });
-  }
-
   async update(senseId: string, dto: UpdateSenseDto) {
     await this.findSenseForLexemeOrThrow(senseId);
 
