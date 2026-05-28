@@ -1,11 +1,22 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateTranslationDto } from './dto/create-translation.dto';
 import { TranslationsService } from './translations.service';
 import { UpdateTranslationDto } from './dto/update-translation.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ActiveUserGuard } from '../auth/guards/active-user.guard';
 
 @Controller('senses/:senseId/translations')
 export class TranslationsController {
   constructor(private readonly translationsService: TranslationsService) {}
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
   @Post()
   create(
     @Param('senseId') senseId: string,
@@ -14,13 +25,16 @@ export class TranslationsController {
     return this.translationsService.create(senseId, createTranslationDto);
   }
 
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
   @Patch(':translationId')
-  udpate(
+  update(
     @Param('translationId') translationId: string,
     @Body() dto: UpdateTranslationDto,
   ) {
     return this.translationsService.update(translationId, dto);
   }
+
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
   @Delete(':translationId')
   delete(@Param('translationId') translationId: string) {
     return this.translationsService.delete(translationId);
