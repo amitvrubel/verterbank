@@ -1,0 +1,30 @@
+.inflectionGrid {
+  direction: rtl;
+  display: grid;
+  grid-template-columns: max-content repeat(3, minmax(4rem, 1fr));
+  gap: 0.5rem 1rem;
+  align-items: center;
+  width: fit-content;
+
+}
+
+.cell {
+  text-align: right;
+}
+
+.header {
+  font-weight: 600;
+}
+
+.rowLabel {
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.pluralRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  direction: rtl;
+  font-weight: 600;
+}

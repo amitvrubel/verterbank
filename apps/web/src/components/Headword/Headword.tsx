@@ -7,6 +7,7 @@ import { Search } from '../Search/Search.tsx';
 import { Logo } from '../Logo/Logo.tsx';
 import { useGetHeadwordById } from '../../hooks/useGetHeadwordById.ts';
 import { Loading } from '../Loading/Loading.tsx';
+import { RtlText } from '../RtlText/RtlText.tsx';
 
 export function Headword(): ReactElement {
   const [activeLexemeIndex, setActiveLexemeIndex] = useState<number>(0);
@@ -36,13 +37,15 @@ export function Headword(): ReactElement {
         <Logo small />
         <Search variant="inline" />
       </div>
-      <h1>{headword.orth}</h1>
+      <RtlText variant="h1" className={styles.headwordOrth}>
+        {headword.orth}
+      </RtlText>
       <LexemeTabs
         activeIndex={activeLexemeIndex}
         lexemes={headword.lexemes}
         onChange={setActiveLexemeIndex}
       />
-      {lexeme && <Lexeme forms={lexeme.forms} senses={lexeme.senses} />}
+      {lexeme && <Lexeme lexeme={lexeme} headwordOrth={headword.orth} />}
     </div>
   );
 }

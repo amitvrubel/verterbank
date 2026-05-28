@@ -1,0 +1,32 @@
+@use '@styles/variables' as s;
+.keyValueGrid {
+  display: grid;
+  margin: 0;
+  border: 1px solid s.$color-border-soft;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  direction: rtl;
+  max-width: fit-content;
+
+  .keyValueGridRow {
+    display: grid;
+    grid-template-columns: minmax(7rem, 35%) 1fr;
+
+    + .keyValueGridRow {
+      border-top: 1px solid s.$color-border-soft;
+    }
+  }
+
+  .label, .value {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .label {
+    font-weight: 600;
+    background:  s.$color-surface-muted;
+    border-inline-end: 1px solid s.$brand-color;
+  }
+  .value {
+    margin: 0;
+  }
+}
