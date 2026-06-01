@@ -112,6 +112,27 @@ export class HeadwordsService {
     });
   }
 
+  async findDrafts() {
+    return this.prisma.headword.findMany({
+      where: {
+        status: PublishStatus.DRAFT,
+      },
+      select: {
+        id: true,
+        orth: true,
+        status: true,
+        lexemes: {
+          select: {
+            partOfSpeech: true,
+          },
+        },
+      },
+      orderBy: {
+        orth: 'asc',
+      },
+    });
+  }
+
   private async findHeadwordOrThrow(id: string) {
     const headword = await this.prisma.headword.findUnique({
       where: { id },

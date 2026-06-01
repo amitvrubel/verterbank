@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import logo from '../../assets/logo.svg';
-import logoSmall from '../../assets/logo-small.svg';
+import logoSmall from '../../../../sofrim/src/assets/logo-small.svg';
 import { useNavigate } from 'react-router-dom';
 import _ from 'classnames';
 import styles from './Logo.module.scss';

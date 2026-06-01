@@ -7,8 +7,8 @@ import useDebouncedValue from '../../hooks/useDebouncedValue.ts';
 import { useQueryClient } from '@tanstack/react-query';
 import { getHeadwordById } from '../../api/headwords.ts';
 import { highlight } from '../../utils/highlight.tsx';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 
 type SearchProps = {
   variant: 'inline' | 'centered';
@@ -66,7 +66,7 @@ export function Search({ variant }: SearchProps): ReactElement {
         value={query}
         onKeyDown={handleKeyDown}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder={yi.searchPlaceholder}
+        placeholder={yi.search.placeholder}
         dir="rtl"
       />
       {query && (
@@ -96,7 +96,7 @@ export function Search({ variant }: SearchProps): ReactElement {
             </div>
           ) : (
             <RtlText variant="div" className={styles.emptySearchResults}>
-              {yi.noResults}
+              {yi.search.noResults}
             </RtlText>
           )}
         </div>

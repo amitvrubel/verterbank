@@ -16,7 +16,8 @@
     "docker:down": "docker compose down",
     "dev:api": "pnpm --filter @verterbank/api start:dev",
     "dev:web": "pnpm --filter @verterbank/web dev",
-    "start:dev": "pnpm docker:up && (pnpm dev:api & pnpm dev:web & wait)"
+    "dev:sofrim": "pnpm --filter sofrim dev",
+    "start:dev": "pnpm docker:up && (pnpm dev:api & pnpm dev:web & pnpm dev:sofrim & wait)"
   },
   "keywords": [],
   "author": "",

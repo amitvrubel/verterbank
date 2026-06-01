@@ -1,10 +1,10 @@
 import type { AdjectiveInflections } from '../../utils/getAdjectiveInflections.ts';
 import { Fragment, type ReactElement } from 'react';
 import styles from './InflectionGrid.module.scss';
-import { yi } from '../../i18n/messages.ts';
-import { RtlText } from '../RtlText/RtlText.tsx';
 import { caseLabel } from '../../enum/CaseEnum.ts';
 import _ from 'classnames';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 interface InflectionGridProps {
   inflections: AdjectiveInflections;
 }
@@ -15,13 +15,13 @@ export function InflectionGrid({ inflections }: InflectionGridProps): ReactEleme
       <div className={styles.inflectionGrid}>
         <div className={_(styles.cell, styles.header)} />
         <div className={_(styles.cell, styles.header)}>
-          <RtlText>{yi.masculine}</RtlText>
+          <RtlText>{yi.grammar.masculine}</RtlText>
         </div>
         <div className={_(styles.cell, styles.header)}>
-          <RtlText>{yi.feminine}</RtlText>
+          <RtlText>{yi.grammar.feminine}</RtlText>
         </div>
         <div className={_(styles.cell, styles.header)}>
-          <RtlText>{yi.neuter}</RtlText>
+          <RtlText>{yi.grammar.neuter}</RtlText>
         </div>
         {inflections.rows.map((row) => (
           <Fragment key={row.case}>
@@ -42,7 +42,7 @@ export function InflectionGrid({ inflections }: InflectionGridProps): ReactEleme
       </div>
       {inflections.plural && (
         <div className={styles.pluralRow}>
-          <RtlText>{yi.plural}</RtlText>
+          <RtlText>{yi.grammar.plural}</RtlText>
           <RtlText>{inflections.plural}</RtlText>
         </div>
       )}

@@ -1,5 +1,5 @@
 import type { VerbForm } from '../view-models/Form.ts';
-import { yi } from '../i18n/messages.ts';
+import { yi } from '@verterbank/messages';
 
 type Auxiliary = 'HABN' | 'ZAYN';
 const auxiliaryLabel = {
@@ -60,7 +60,7 @@ function getVerbFormLabel(form: VerbForm): string | undefined {
   }
 
   if (form.tense === 'PAST') {
-    return yi.participle;
+    return yi.grammar.participle;
   }
 
   return undefined;

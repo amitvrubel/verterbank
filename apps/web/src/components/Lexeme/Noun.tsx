@@ -1,11 +1,11 @@
 import { type ReactElement } from 'react';
 import type { NounLexeme } from '../../view-models/Lexeme.ts';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
 import { KeyValueGrid, type KeyValueItem } from '../KevValueGrid/KeyValueGrid.tsx';
 
 import { getNounInflections } from '../../utils/getNounInflections.ts';
 import { caseLabel } from '../../enum/CaseEnum.ts';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 
 interface NounProps {
   headwordOrth: string;
@@ -16,7 +16,7 @@ export function Noun({ headwordOrth, noun }: NounProps): ReactElement {
   const declensions: KeyValueItem[] = getNounInflections(noun, headwordOrth).map((item) => {
     if (item.kind === 'plural') {
       return {
-        label: <RtlText>{yi.plural}</RtlText>,
+        label: <RtlText>{yi.grammar.plural}</RtlText>,
         value: <RtlText>{`${item.determiner} ${item.valueOrth}`}</RtlText>,
       };
     }
@@ -28,7 +28,7 @@ export function Noun({ headwordOrth, noun }: NounProps): ReactElement {
   });
   return (
     <section>
-      <RtlText variant="h4">{yi.grammar}</RtlText>
+      <RtlText variant="h4">{yi.sections.grammar}</RtlText>
       {declensions && <KeyValueGrid items={declensions} />}
     </section>
   );

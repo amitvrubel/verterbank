@@ -3,7 +3,7 @@ import type { ReactElement } from 'react';
 import styles from './Lexeme.module.scss';
 import { KeyValueGrid, type KeyValueItem } from '../KevValueGrid/KeyValueGrid.tsx';
 import { getVerbInflectionItems } from '../../utils/getVerbInflections.ts';
-import { RtlText } from '../RtlText/RtlText.tsx';
+import { RtlText } from '@verterbank/ui';
 
 interface VerbProps {
   verb: VerbLexeme;

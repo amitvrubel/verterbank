@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react';
 import type { ApiSense } from '../../dto/HeadwordDto.ts';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
 import { Sense } from './Sense.tsx';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 
 interface SensesProps {
   senses: ApiSense[];
@@ -10,7 +10,7 @@ interface SensesProps {
 export function Senses({ senses }: SensesProps): ReactElement {
   return (
     <section>
-      <RtlText variant="h4">{yi.meanings}</RtlText>
+      <RtlText variant="h4">{yi.sections.meanings}</RtlText>
       {senses.map((sense, index) => (
         <Sense key={sense.id} sense={sense} index={index} />
       ))}

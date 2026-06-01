@@ -1,0 +1,45 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  border: 1px solid transparent;
+
+  &.default {
+    color: #4a2f22;
+    background: #f6f1ec;
+    border-color: #d8c7b8;}
+
+  &.muted {
+    color: #6f6259;
+    background: #eee6de;
+    border-color: #ddcec0;}
+
+  &.success {
+    color: #25603d;
+    background: #e7f4ec;
+    border-color: #c6e5d1;
+  }
+
+  &.warning {
+    color: #7a4d00;
+    background: #fff4d8;
+    border-color: #f1d694;
+  }
+
+  &.danger {
+    color: #8a2f2f;
+    background: #f8e3e3;
+    border-color: #e8bcbc;
+  }
+
+}
+
