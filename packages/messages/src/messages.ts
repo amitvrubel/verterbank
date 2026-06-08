@@ -42,5 +42,6 @@ export const yi = {
     drafts: 'אָנוואַרפֿן',
     greeting: 'שלום עליכם',
     noNewDraftsFound: 'קיין נייע אַנוואַרפּן זענען נישט געפֿונען געוואָרן',
+    missingPosLabel: 'קיין וואָרטאַרט',
   },
 } as const;

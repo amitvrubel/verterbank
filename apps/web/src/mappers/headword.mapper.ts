@@ -1,9 +1,9 @@
 import type { ApiForm, ApiHeadword, ApiLexeme } from '../dto/HeadwordDto.ts';
 import type { BaseLexeme, HeadwordViewModel, LexemeViewModel } from '../view-models/Lexeme.ts';
-import { PartOfSpeech } from '../enum/PartOfSpeech.ts';
 import type { AdjectiveForm, GenericForm, NounForm, VerbForm } from '../view-models/Form.ts';
 import { sortNounForms } from '../utils/sortCase.ts';
 import { sortVerbForms } from '../utils/getVerbInflections.ts';
+import { PartOfSpeech } from '@verterbank/ui';
 
 function toGenericForm(form: ApiForm): GenericForm {
   return {

@@ -4,6 +4,7 @@ export type DraftHeadword = {
   orth: string;
   status: string;
   lexemes: {
+    id: string;
     partOfSpeech: string;
   }[];
 };

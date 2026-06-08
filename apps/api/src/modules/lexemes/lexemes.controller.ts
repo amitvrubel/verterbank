@@ -20,6 +20,11 @@ export class LexemesController {
   constructor(private readonly lexemesService: LexemesService) {}
 
   @UseGuards(JwtAuthGuard, ActiveUserGuard)
+  @Get(':lexemeId')
+  get(@Param('lexemeId') lexemeId: string) {
+    return this.lexemesService.getLexeme(lexemeId);
+  }
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
   @Post()
   create(
     @Param('headwordId') headwordId: string,

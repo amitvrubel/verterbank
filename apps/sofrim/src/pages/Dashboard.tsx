@@ -49,9 +49,13 @@ export function Dashboard(): ReactElement {
         <p>{yi.sofrim.noNewDraftsFound}</p>
       ) : (
         <div>
-          {draftHeadwords.map((headword) => (
-            <HeadwordCard headword={headword} key={headword.id} />
-          ))}
+          {draftHeadwords.map((headword) => {
+            let onClick;
+            if (headword.lexemes.length > 0) {
+              onClick = () => {};
+            }
+            return <HeadwordCard headword={headword} key={headword.id} onClick={onClick} />;
+          })}
         </div>
       )}
     </div>

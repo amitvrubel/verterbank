@@ -123,6 +123,7 @@ export class HeadwordsService {
         status: true,
         lexemes: {
           select: {
+            id: true,
             partOfSpeech: true,
           },
         },

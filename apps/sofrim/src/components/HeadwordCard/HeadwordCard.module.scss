@@ -11,4 +11,27 @@
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 8px 24px rgba(60, 40, 30, 0.06);
+
+  display: flex;
+  gap: 1rem;
+
+  .chevronContainer {
+    margin-right: auto;
+  }
+
+  .chevronDown {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+  }
+
+  .chevronDownOpen {
+    transform: rotate(180deg);
+  }
+
 }

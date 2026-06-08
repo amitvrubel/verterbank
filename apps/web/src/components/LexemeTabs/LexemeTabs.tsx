@@ -1,8 +1,8 @@
 import { type ReactElement } from 'react';
 import _ from 'classnames';
 import styles from './LexemeTabs.module.scss';
-import { partOfSpeechLabel } from '../../enum/PartOfSpeech.ts';
 import type { LexemeViewModel } from '../../view-models/Lexeme.ts';
+import { partOfSpeechLabel } from '@verterbank/ui';
 type LexemeTabProps = {
   activeIndex: number;
   lexemes: LexemeViewModel[];
