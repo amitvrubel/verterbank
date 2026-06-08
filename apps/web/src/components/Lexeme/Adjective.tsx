@@ -2,11 +2,11 @@ import type { ReactElement } from 'react';
 import styles from './Lexeme.module.scss';
 import type { AdjectiveLexeme } from '../../view-models/Lexeme.ts';
 import { KeyValueGrid, type KeyValueItem } from '../KevValueGrid/KeyValueGrid.tsx';
-import { RtlText } from '../RtlText/RtlText.tsx';
 import { getAdjectiveDegreeItems } from '../../utils/getAdjectiveDegrees.ts';
 import { adjectiveDegreeLabel } from '../../enum/AdjectiveDegreeEnum.ts';
 import { getAdjectiveInflections } from '../../utils/getAdjectiveInflections.ts';
 import { InflectionGrid } from '../InflectionGrid/InflectionGrid.tsx';
+import { RtlText } from '@verterbank/ui';
 
 interface AdjectiveProps {
   headwordOrth: string;

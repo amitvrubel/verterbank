@@ -1,0 +1,11 @@
+.app {
+
+  .appHeader {
+    background-image: linear-gradient(to left, rgba(198, 40, 40), rgba(198, 40, 40, 0.1));
+    padding: 1rem;
+    display: flex;
+    span:last-of-type {
+      margin-right: auto;
+    }
+  }
+}

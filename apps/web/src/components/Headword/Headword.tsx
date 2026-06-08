@@ -7,7 +7,7 @@ import { Search } from '../Search/Search.tsx';
 import { Logo } from '../Logo/Logo.tsx';
 import { useGetHeadwordById } from '../../hooks/useGetHeadwordById.ts';
 import { Loading } from '../Loading/Loading.tsx';
-import { RtlText } from '../RtlText/RtlText.tsx';
+import { RtlText } from '@verterbank/ui';
 
 export function Headword(): ReactElement {
   const [activeLexemeIndex, setActiveLexemeIndex] = useState<number>(0);

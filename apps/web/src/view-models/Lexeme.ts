@@ -1,7 +1,7 @@
 import type { ApiSense } from '../dto/HeadwordDto.ts';
-import type { PartOfSpeech } from '../enum/PartOfSpeech.ts';
 import type { GrammaticalGenderEnum } from '../enum/GrammaticalGenderEnum.ts';
 import type { AdjectiveForm, GenericForm, NounForm, VerbForm } from './Form.ts';
+import { PartOfSpeech } from '@verterbank/ui';
 
 export type BaseLexeme = {
   id: string;

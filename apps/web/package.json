@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.95.2",
+    "@verterbank/messages": "workspace:*",
+    "@verterbank/ui": "workspace:*",
     "classnames": "^2.5.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

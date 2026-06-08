@@ -110,6 +110,29 @@ export class LexemesService {
     });
   }
 
+  async getLexeme(id: string) {
+    const lexeme = await this.prismaService.lexeme.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        partOfSpeech: true,
+        grammaticalGender: true,
+        pastAuxiliary: true,
+        yivo: true,
+        ipa: true,
+        notes: true,
+        senses: true,
+        forms: true,
+        usageLabels: true,
+      },
+    });
+
+    if (!lexeme) {
+      throw new NotFoundException(`Lexeme with id ${id} not found`);
+    }
+    return lexeme;
+  }
+
   private async findLexemeOrThrow(id: string) {
     const lexeme = await this.prismaService.lexeme.findUnique({
       where: { id },

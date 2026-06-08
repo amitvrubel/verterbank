@@ -15,6 +15,11 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@verterbank/messages": ["../../packages/messages/src/index.ts"],
+      "@verterbank/ui": ["../../packages/ui/src/index.ts"]
+    },
 
     /* Linting */
     "strict": true,

@@ -1,12 +1,12 @@
 import type { ReactElement } from 'react';
 import type { LexemeViewModel } from '../../view-models/Lexeme.ts';
-import { PartOfSpeech } from '../../enum/PartOfSpeech.ts';
 import { DefaultLexeme } from './DefaultLexeme.tsx';
 import { Verb } from './Verb.tsx';
 import { Noun } from './Noun.tsx';
 import styles from './Lexeme.module.scss';
 import { Senses } from '../Sense/Senses.tsx';
 import { Adjective } from './Adjective.tsx';
+import { PartOfSpeech } from '@verterbank/ui';
 
 type LexemeProps = {
   lexeme: LexemeViewModel;

@@ -1,10 +1,10 @@
 import { GrammaticalGenderEnum, grammaticalGenderLabel } from '../enum/GrammaticalGenderEnum.ts';
-import { yi } from '../i18n/messages.ts';
 import { CaseEnum } from '../enum/CaseEnum.ts';
+import { yi } from '@verterbank/messages';
 
 function getAccusativeDeterminer(grammaticalGender: GrammaticalGenderEnum) {
   if (GrammaticalGenderEnum.MASC === GrammaticalGenderEnum[grammaticalGender]) {
-    return yi.dem;
+    return yi.articles.dem;
   }
   return grammaticalGenderLabel[grammaticalGender];
 }
@@ -14,10 +14,10 @@ function getDativeDeterminer(grammaticalGender: GrammaticalGenderEnum) {
     GrammaticalGenderEnum.MASC === GrammaticalGenderEnum[grammaticalGender] ||
     GrammaticalGenderEnum.NEUT === GrammaticalGenderEnum[grammaticalGender]
   ) {
-    return yi.dem;
+    return yi.articles.dem;
   }
   if (GrammaticalGenderEnum.FEM === GrammaticalGenderEnum[grammaticalGender]) {
-    return yi.der;
+    return yi.articles.der;
   }
   return grammaticalGenderLabel[grammaticalGender];
 }

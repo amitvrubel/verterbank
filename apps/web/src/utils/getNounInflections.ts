@@ -1,7 +1,7 @@
 import { CaseEnum, isCase } from '../enum/CaseEnum.ts';
-import { yi } from '../i18n/messages.ts';
 import type { NounLexeme } from '../view-models/Lexeme.ts';
 import { getDeterminer } from './getDeterminer.ts';
+import { yi } from '@verterbank/messages';
 
 type CaseInflectionItem = {
   kind: 'case';
@@ -45,7 +45,7 @@ export function getNounInflections(noun: NounLexeme, headwordOrth: string): Noun
         ? [
             {
               kind: 'plural',
-              determiner: yi.di,
+              determiner: yi.articles.di,
               valueOrth: pluralForm.valueOrth,
             },
           ]

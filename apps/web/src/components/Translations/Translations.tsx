@@ -2,9 +2,9 @@ import type { ApiTranslation } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import styles from './Translations.module.scss';
 import { LanguagesEnum } from '../../enum/LanguagesEnum.ts';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
 import { KeyValueGrid, type KeyValueItem } from '../KevValueGrid/KeyValueGrid.tsx';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 
 type TranslationsProps = {
   translations: ApiTranslation[];
@@ -21,7 +21,7 @@ export function Translations({ translations }: TranslationsProps): ReactElement 
 
   return (
     <div className={styles.translationContainer}>
-      <RtlText variant="h4">{yi.translations}</RtlText>
+      <RtlText variant="h4">{yi.sections.translations}</RtlText>
       {translationsByLanguage && <KeyValueGrid items={translationsByLanguage} />}
     </div>
   );

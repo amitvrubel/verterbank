@@ -34,6 +34,12 @@ export class HeadwordsController {
     return this.headwords.search(q ?? '');
   }
 
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
+  @Get('drafts')
+  findDrafts() {
+    return this.headwords.findDrafts();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.headwords.findById(id);

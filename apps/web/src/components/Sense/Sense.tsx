@@ -2,8 +2,8 @@ import type { ApiSense } from '../../dto/HeadwordDto.ts';
 import type { ReactElement } from 'react';
 import styles from './Sense.module.scss';
 import { Translations } from '../Translations/Translations.tsx';
-import { RtlText } from '../RtlText/RtlText.tsx';
-import { yi } from '../../i18n/messages.ts';
+import { yi } from '@verterbank/messages';
+import { RtlText } from '@verterbank/ui';
 
 type SenseProps = {
   index: number;
@@ -22,7 +22,7 @@ export function Sense({ index, sense }: SenseProps): ReactElement {
       </section>
       <section className={styles.senseIndentedSection}>
         <div className={styles.senseExamples}>
-          <RtlText variant="h4">{yi.examples}</RtlText>
+          <RtlText variant="h4">{yi.sections.examples}</RtlText>
           <ul>
             {sense.examples.map((example) => (
               <li key={example.id}>{example.textYi}</li>

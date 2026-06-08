@@ -1,4 +1,4 @@
-import { yi } from '../i18n/messages.ts';
+import { yi } from '@verterbank/messages';
 
 export enum AdjectiveDegreeEnum {
   POSITIVE = 'POSITIVE',
@@ -7,7 +7,7 @@ export enum AdjectiveDegreeEnum {
 }
 
 export const adjectiveDegreeLabel: Record<AdjectiveDegreeEnum, string> = {
-  [AdjectiveDegreeEnum.POSITIVE]: yi.positive,
-  [AdjectiveDegreeEnum.COMPARATIVE]: yi.comparative,
-  [AdjectiveDegreeEnum.SUPERLATIVE]: yi.superlative,
+  [AdjectiveDegreeEnum.POSITIVE]: yi.grammar.positive,
+  [AdjectiveDegreeEnum.COMPARATIVE]: yi.grammar.comparative,
+  [AdjectiveDegreeEnum.SUPERLATIVE]: yi.grammar.superlative,
 };
