@@ -40,7 +40,7 @@ export function Dashboard(): ReactElement {
     <div className={styles.dashboardContainer}>
       <div>
         <h1 dir="rtl">
-          {yi.sofrim.greeting}, {user.displayName ?? user.email}
+          {yi.sofrim.greeting}, {user?.displayName ?? user?.email}
         </h1>
       </div>
       <h1>{yi.sofrim.drafts}</h1>
@@ -49,13 +49,9 @@ export function Dashboard(): ReactElement {
         <p>{yi.sofrim.noNewDraftsFound}</p>
       ) : (
         <div>
-          {draftHeadwords.map((headword) => {
-            let onClick;
-            if (headword.lexemes.length > 0) {
-              onClick = () => {};
-            }
-            return <HeadwordCard headword={headword} key={headword.id} onClick={onClick} />;
-          })}
+          {draftHeadwords.map((headword) => (
+            <HeadwordCard headword={headword} key={headword.id} />
+          ))}
         </div>
       )}
     </div>

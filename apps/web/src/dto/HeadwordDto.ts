@@ -1,6 +1,5 @@
-import type { GrammaticalGenderEnum } from '../enum/GrammaticalGenderEnum.ts';
 import type { PastAuxiliary } from '../view-models/Lexeme.ts';
-import { PartOfSpeech } from '@verterbank/ui';
+import { GrammaticalGenderEnum, type PartOfSpeechValue } from '@verterbank/ui';
 
 export type ApiTranslation = {
   id: string;
@@ -42,7 +41,7 @@ export type ApiForm = {
 
 export type ApiLexeme = {
   id: string;
-  partOfSpeech: PartOfSpeech;
+  partOfSpeech: PartOfSpeechValue;
   grammaticalGender?: GrammaticalGenderEnum;
   pastAuxiliary?: PastAuxiliary;
   yivo?: string;

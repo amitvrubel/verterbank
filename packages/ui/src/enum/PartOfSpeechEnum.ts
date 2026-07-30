@@ -1,19 +1,22 @@
-export enum PartOfSpeech {
-  NOUN = 'NOUN',
-  VERB = 'VERB',
-  ADJECTIVE = 'ADJECTIVE',
-  ADVERB = 'ADVERB',
-  PRONOUN = 'PRONOUN',
-  DETERMINER = 'DETERMINER',
-  PREPOSITION = 'PREPOSITION',
-  CONJUNCTION = 'CONJUNCTION',
-  PARTICLE = 'PARTICLE',
-  INTERJECTION = 'INTERJECTION',
-  NUMERAL = 'NUMERAL',
-  PROPER_NOUN = 'PROPER_NOUN',
-  OTHER = 'OTHER',
-}
-export const partOfSpeechLabel: Record<PartOfSpeech, string> = {
+export const PartOfSpeech = {
+  NOUN: 'NOUN',
+  VERB: 'VERB',
+  ADJECTIVE: 'ADJECTIVE',
+  ADVERB: 'ADVERB',
+  PRONOUN: 'PRONOUN',
+  DETERMINER: 'DETERMINER',
+  PREPOSITION: 'PREPOSITION',
+  CONJUNCTION: 'CONJUNCTION',
+  PARTICLE: 'PARTICLE',
+  INTERJECTION: 'INTERJECTION',
+  NUMERAL: 'NUMERAL',
+  PROPER_NOUN: 'PROPER_NOUN',
+  OTHER: 'OTHER',
+} as const;
+
+export type PartOfSpeechValue = (typeof PartOfSpeech)[keyof typeof PartOfSpeech];
+
+export const partOfSpeechLabel: Record<PartOfSpeechValue, string> = {
   [PartOfSpeech.NOUN]: 'נאָמען',
   [PartOfSpeech.VERB]: 'ווערב',
   [PartOfSpeech.ADJECTIVE]: 'אַדזשעקטיוו',

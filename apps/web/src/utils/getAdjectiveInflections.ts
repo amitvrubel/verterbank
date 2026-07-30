@@ -1,6 +1,6 @@
-import { CaseEnum } from '../enum/CaseEnum.ts';
-import { GrammaticalGenderEnum } from '../enum/GrammaticalGenderEnum.ts';
+import { CaseEnum } from '../../../../packages/ui/src/enum/CaseEnum.ts';
 import type { AdjectiveForm } from '../view-models/Form.ts';
+import { GrammaticalGenderEnum } from '@verterbank/ui';
 
 export interface AdjectiveInflectionRow {
   case: CaseEnum;

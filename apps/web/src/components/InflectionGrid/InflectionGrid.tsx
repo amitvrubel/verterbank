@@ -1,10 +1,10 @@
 import type { AdjectiveInflections } from '../../utils/getAdjectiveInflections.ts';
 import { Fragment, type ReactElement } from 'react';
 import styles from './InflectionGrid.module.scss';
-import { caseLabel } from '../../enum/CaseEnum.ts';
+
 import _ from 'classnames';
 import { yi } from '@verterbank/messages';
-import { RtlText } from '@verterbank/ui';
+import { caseLabel, RtlText } from '@verterbank/ui';
 interface InflectionGridProps {
   inflections: AdjectiveInflections;
 }

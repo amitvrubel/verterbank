@@ -1,4 +1,4 @@
-import { CaseEnum, isCase } from '../enum/CaseEnum.ts';
+import { CaseEnum, isCase } from '../../../../packages/ui/src/enum/CaseEnum.ts';
 import type { NounForm } from '../view-models/Form.ts';
 
 const CASE_ORDER: Record<CaseEnum, number> = {

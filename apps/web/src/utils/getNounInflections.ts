@@ -1,4 +1,4 @@
-import { CaseEnum, isCase } from '../enum/CaseEnum.ts';
+import { CaseEnum, isCase } from '../../../../packages/ui/src/enum/CaseEnum.ts';
 import type { NounLexeme } from '../view-models/Lexeme.ts';
 import { getDeterminer } from './getDeterminer.ts';
 import { yi } from '@verterbank/messages';

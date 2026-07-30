@@ -1,0 +1,15 @@
+.loadingCircle {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(93, 64, 55, 0.18);
+  border-top-color: #5d4037;
+  border-radius: 999px;
+  animation: loadingCircleSpin 0.7s linear infinite;
+}
+
+@keyframes loadingCircleSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}

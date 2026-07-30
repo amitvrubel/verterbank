@@ -1,12 +1,25 @@
 const API_BASE_URL = 'http://localhost:3000';
+
+export type DraftDetailValue =
+  | string
+  | number
+  | boolean
+  | null
+  | DraftDetailValue[]
+  | { [key: string]: DraftDetailValue };
+
+export type DraftLexemeSummary = {
+  [key: string]: DraftDetailValue;
+  id: string;
+  partOfSpeech: string;
+};
+
 export type DraftHeadword = {
+  [key: string]: DraftDetailValue;
   id: string;
   orth: string;
   status: string;
-  lexemes: {
-    id: string;
-    partOfSpeech: string;
-  }[];
+  lexemes: DraftLexemeSummary[];
 };
 
 export async function getDraftHeadwords(accessToken: string): Promise<DraftHeadword[]> {

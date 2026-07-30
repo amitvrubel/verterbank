@@ -1,6 +1,5 @@
-import { GrammaticalGenderEnum, grammaticalGenderLabel } from '../enum/GrammaticalGenderEnum.ts';
-import { CaseEnum } from '../enum/CaseEnum.ts';
 import { yi } from '@verterbank/messages';
+import { CaseEnum, GrammaticalGenderEnum, grammaticalGenderLabel } from '@verterbank/ui';
 
 function getAccusativeDeterminer(grammaticalGender: GrammaticalGenderEnum) {
   if (GrammaticalGenderEnum.MASC === GrammaticalGenderEnum[grammaticalGender]) {

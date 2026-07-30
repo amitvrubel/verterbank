@@ -3,9 +3,8 @@ import type { NounLexeme } from '../../view-models/Lexeme.ts';
 import { KeyValueGrid, type KeyValueItem } from '../KevValueGrid/KeyValueGrid.tsx';
 
 import { getNounInflections } from '../../utils/getNounInflections.ts';
-import { caseLabel } from '../../enum/CaseEnum.ts';
 import { yi } from '@verterbank/messages';
-import { RtlText } from '@verterbank/ui';
+import { caseLabel, RtlText } from '@verterbank/ui';
 
 interface NounProps {
   headwordOrth: string;
